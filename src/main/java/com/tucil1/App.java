@@ -1,5 +1,4 @@
 package com.tucil1;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -13,6 +12,8 @@ public class App extends Application {
         String javaVersion = System.getProperty("java.version");
         String javafxVersion = System.getProperty("javafx.version");
         
+        // Membuat label sederhana
+        Label l = new Label("Halo! JavaFX berjalan di Java " + javaVersion);
         Scene scene = new Scene(new StackPane(l), 400, 300);
         
         stage.setTitle("Tucil 1 - Queens Solver");
