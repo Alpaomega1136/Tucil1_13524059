@@ -1,4 +1,5 @@
 package com.tucil1;
+import java.util.ArrayList;
 
 public class Solve{
     private static long casesTried = 0;
@@ -13,32 +14,64 @@ public class Solve{
             return null;
         }
         casesTried = 0;
+        ratu.position = new ArrayList<>();
         long startTime = System.nanoTime();
-        if(iteration(papan, ratu)){
+        if(iteration(0, papan, ratu)){
             long elapsedMs = (System.nanoTime() - startTime) / 1_000_000L;
             int iter = casesTried > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) casesTried;
             int time = elapsedMs > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) elapsedMs;
             info = new Data.Information(iter, time);
             return ratu;
         }
-        info = null;
+        long elapsedMs = (System.nanoTime() - startTime) / 1_000_000L;
+        int iter = casesTried > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) casesTried;
+        int time = elapsedMs > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) elapsedMs;
+        info = new Data.Information(iter, time);
+
         return null;
     }
 
-    // Brute-Force algorithm 
-    private static boolean iteration(Data.ListColor papan, Data.Queen ratu){
-        return true;
+    // Brute-Force algorithm
+    private static boolean iteration(int colorIdx, Data.ListColor papan, Data.Queen ratu) {
+        if (colorIdx >= papan.colors.size()) { 
+            // pengecekan apakah penempatan ratu benar
+            casesTried++;
+            if (CheckQueen(ratu)) {
+                return true;
+            }
+            return false;
+        }
+        
+        Data.Color currentColor = papan.colors.get(colorIdx);
+
+        // mencoba semua kemungkinan koordinat warna.
+        for (int i = 0; i < currentColor.position.size(); i++) {
+            ratu.position.add(currentColor.position.get(i));
+
+            // cek warna berikutnya
+            boolean success = iteration(colorIdx + 1, papan, ratu);
+
+            if (success) return true; // Jika ketemu
+
+            // jika koordinat warna tersebut salah, hapus dan ganti koordinat baru
+            ratu.position.remove(ratu.position.size() - 1);
+        }
+
+        // Jika tidak ketemu
+        return false;
     }
 
     private static boolean CheckQueen(Data.Queen ratu){
         if(ratu == null || ratu.position == null || ratu.position.isEmpty()){
         return false;
         }
-        for(int i = 0; i < ratu.queens; i++){
+
+        int queenCounts = ratu.position.size();
+        for(int i = 0; i < queenCounts; i++){
         Data.Coordinat currentQueen = ratu.position.get(i);
         int x = currentQueen.x;
         int y = currentQueen.y;
-            for(int j = i + 1; i <ratu.queens;j++){
+            for(int j = i + 1; j <ratu.queens;j++){
                 Data.Coordinat checkQueen = ratu.position.get(i);
                 int x2 = checkQueen.x;
                 int y2 = checkQueen.y;
@@ -54,7 +87,7 @@ public class Solve{
         if(x1 == x2 || y1 == y2){ // terletak baris dan kolom sama
             return false;
         }
-        if(((x2 - 1 < x1) && (x1 < x2 + 1)) && ((y2 - 1 < y1) && (y1 < y2 + 1))){ 
+        if(Math.abs(x1 - x2) <= 1 && Math.abs(y1 - y2) <= 1){ 
             // terletak disekitar dengan jarak satu kotak
             return false; 
         }
