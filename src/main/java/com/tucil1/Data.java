@@ -54,7 +54,7 @@ public class Data {
         }
     }
     
-    public void inputColor (ListColor jenis, BufferedReader br) throws IOException{
+    public static void inputColor (ListColor jenis, BufferedReader br) throws IOException{
         if(jenis == null){ // jika blm diinisialisasi
             return;
         }
@@ -84,7 +84,7 @@ public class Data {
         }
     }
 
-    private void addCells(ListColor jenis, char letter, int x, int y) {
+    private static void addCells(ListColor jenis, char letter, int x, int y) {
         for(int i = 0; i < jenis.count; i++){
                 if(jenis.colors.get(i).letter == letter){
                     jenis.colors.get(i).position.add(new Coordinat(x, y));

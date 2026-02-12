@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="700.0" prefWidth="1000.0" styleClass="root" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="com.tucil1.GUIController">
+
+    <top>
+        <VBox alignment="CENTER" spacing="10" styleClass="header">
+            <BorderPane.margin>
+                <Insets bottom="10" top="10" />
+            </BorderPane.margin>
+            <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" styleClass="title" text="Queens Puzzle Solver" />
+            <Label style="-fx-text-fill: #7f8c8d;" text="Tucil 1 - IF2211 Strategi Algoritma" />
+        </VBox>
+    </top>
+
+    <left>
+        <VBox prefWidth="320.0" spacing="15.0" styleClass="panel" BorderPane.alignment="TOP_CENTER">
+            <BorderPane.margin>
+                <Insets bottom="20" left="20" right="10" top="0" />
+            </BorderPane.margin>
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+
+            <Label style="-fx-font-weight: bold;" styleClass="section-title" text="Input Peta Wilayah" />
+            
+            <TextArea fx:id="blocksArea" promptText="Contoh (4x4):&#10;A A B B&#10;A C C B&#10;A C D D&#10;E E E D" style="-fx-font-family: 'Consolas', 'Monospaced';" styleClass="input-area" VBox.vgrow="ALWAYS" />
+
+            <HBox spacing="10">
+                <Button onAction="#onLoadClicked" prefWidth="120" styleClass="ghost-button" text="📂 Load File" />
+                <Button onAction="#onClearClicked" prefWidth="80" styleClass="ghost-button" text="🗑 Clear" />
+            </HBox>
+            
+            <Button fx:id="solveButton" maxWidth="Infinity" onAction="#onSolveClicked" style="-fx-padding: 12 0 12 0; -fx-font-weight: bold;" styleClass="accent-button" text="▶ SOLVE QUEENS" />
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane styleClass="panel" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="20" left="10" right="20" top="0" />
+            </BorderPane.margin>
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+            
+            <VBox alignment="CENTER" spacing="15">
+                <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #ecf0f1; -fx-background-radius: 5; -fx-padding: 10;">
+                    <Label fx:id="statusLabel" maxWidth="Infinity" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Menunggu Input..." HBox.hgrow="ALWAYS" />
+                    <Separator orientation="VERTICAL" />
+                    <Label fx:id="timeLabel" styleClass="stat-label" text="Waktu: 0 ms" />
+                    <Separator orientation="VERTICAL" />
+                    <Label fx:id="casesLabel" styleClass="stat-label" text="Iterasi: 0" />
+                </HBox>
+
+                <StackPane style="-fx-border-color: #bdc3c7; -fx-border-radius: 8; -fx-border-style: dashed; -fx-background-color: #ffffff;" VBox.vgrow="ALWAYS">
+                    <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color:transparent; -fx-background: transparent;">
+                        <content>
+                            <StackPane fx:id="boardContainer" styleClass="board-surface">
+                                <GridPane fx:id="boardGrid" alignment="CENTER" hgap="1.0" vgap="1.0" />
+                            </StackPane>
+                        </content>
+                    </ScrollPane>
+                </StackPane>
+
+                <HBox fx:id="saveBox" alignment="CENTER_RIGHT" spacing="10" visible="false">
+                    <Label style="-fx-font-weight: bold;" text="Simpan Solusi:" />
+                    <TextField fx:id="saveNameField" prefWidth="150" promptText="nama_file" />
+                    <Button onAction="#onSaveTxtClicked" styleClass="control-button" text="Save .TXT" />
+                    <Button onAction="#onSaveImgClicked" styleClass="control-button" text="Save .PNG" />
+                </HBox>
+            </VBox>
+        </StackPane>
+    </center>
+
+</BorderPane>
