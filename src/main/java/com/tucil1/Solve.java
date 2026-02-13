@@ -1,9 +1,11 @@
 package com.tucil1;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class Solve{
     private static long casesTried = 0;
     private static Data.Information info = null;
+    public static Consumer<Data.Queen> onUpdateGUI = null;
 
     public static Data.Information getInfo() {
         return info;
@@ -14,6 +16,7 @@ public class Solve{
             return null;
         }
         casesTried = 0;
+        info = null;
         ratu.position = new ArrayList<>();
         long startTime = System.nanoTime();
         if(iteration(0, papan, ratu)){
@@ -34,8 +37,16 @@ public class Solve{
     // Brute-Force algorithm
     private static boolean iteration(int colorIdx, Data.ListColor papan, Data.Queen ratu) {
         if (colorIdx >= papan.colors.size()) { 
-            // pengecekan apakah penempatan ratu benar
             casesTried++;
+            if (casesTried % 1000 == 0 && onUpdateGUI != null) { // Update GUI
+                
+                Data.Queen snapshot = new Data.Queen(ratu.queens);
+                snapshot.position = new ArrayList<>(ratu.position); 
+                
+                onUpdateGUI.accept(snapshot); 
+
+                try { Thread.sleep(1); } catch (InterruptedException e) {}
+            }
             if (CheckQueen(ratu)) {
                 return true;
             }
@@ -44,20 +55,16 @@ public class Solve{
         
         Data.Color currentColor = papan.colors.get(colorIdx);
 
-        // mencoba semua kemungkinan koordinat warna.
         for (int i = 0; i < currentColor.position.size(); i++) {
             ratu.position.add(currentColor.position.get(i));
 
-            // cek warna berikutnya
             boolean success = iteration(colorIdx + 1, papan, ratu);
 
-            if (success) return true; // Jika ketemu
-
-            // jika koordinat warna tersebut salah, hapus dan ganti koordinat baru
+            if (success){
+                return true;
+            }
             ratu.position.remove(ratu.position.size() - 1);
         }
-
-        // Jika tidak ketemu
         return false;
     }
 
@@ -71,8 +78,8 @@ public class Solve{
         Data.Coordinat currentQueen = ratu.position.get(i);
         int x = currentQueen.x;
         int y = currentQueen.y;
-            for(int j = i + 1; j <ratu.queens;j++){
-                Data.Coordinat checkQueen = ratu.position.get(i);
+            for(int j = i + 1; j < queenCounts ;j++){
+                Data.Coordinat checkQueen = ratu.position.get(j);
                 int x2 = checkQueen.x;
                 int y2 = checkQueen.y;
                 if(!ListCheck(x,y,x2,y2)){

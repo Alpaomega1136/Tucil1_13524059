@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Data {
+    public static int rows;
+    public static int cols;
+    
     public static class Information{
         public final int iteration;
         public final int time;
@@ -53,6 +56,15 @@ public class Data {
             this.position = new ArrayList<>();
         }
     }
+
+    public static class Map{
+        Boolean Queen;
+        char Letter;
+        Map(char Letter){
+            this.Letter = Letter;
+            this.Queen = false;
+        }
+    }
     
     public static void inputColor (ListColor jenis, BufferedReader br) throws IOException{
         if(jenis == null){ // jika blm diinisialisasi
@@ -72,8 +84,8 @@ public class Data {
             return;
         }
 
-        int rows = lines.size();
-        int cols = lines.get(0).length();
+        rows = lines.size();
+        cols = lines.get(0).length();
 
         for(int i = 0; i < rows; i++){
             String lineRow = lines.get(i);
