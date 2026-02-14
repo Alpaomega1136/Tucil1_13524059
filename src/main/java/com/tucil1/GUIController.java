@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -18,14 +19,13 @@ import javafx.stage.FileChooser;
 public class GUIController {
 
     @FXML private TextArea blocksArea;
-
     @FXML private Label statusLabel, timeLabel, casesLabel;
     @FXML private GridPane boardGrid;
     @FXML private StackPane boardContainer;
     @FXML private HBox saveBox;
+    @FXML private TextField saveNameField;
     
-
-    @FXML // Load .txt file
+    @FXML
     public void onLoadClicked(ActionEvent event) {
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text files", "*.txt"));
@@ -117,22 +117,36 @@ public class GUIController {
 
     @FXML
     public void onSaveTxtClicked(ActionEvent event) {
+        String fileName = saveNameField.getText();
+        if (fileName == null || fileName.trim().isEmpty()) {
+            statusLabel.setText("Nama file tidak boleh kosong!");
+            return;
+        }
+        Save.saveTxt(fileName.trim());
+        statusLabel.setText("Disimpan: " + fileName + ".txt");
     }
 
     @FXML
     public void onSaveImgClicked(ActionEvent event) {
+        String fileName = saveNameField.getText();
+        if (fileName == null || fileName.trim().isEmpty()) {
+            statusLabel.setText("Nama file tidak boleh kosong!");
+            return;
+        }
+        Save.saveImg(fileName.trim());
+        statusLabel.setText("Disimpan: " + fileName + ".png");
     }
 
     public void generateBoard(Data.ListColor papan, Data.Queen ratu) {
         boardGrid.getChildren().clear();
-        Data.Map[][] boardMap = new Data.Map[Data.rows][Data.cols];
+        Data.Map = new Data.Cell[Data.rows][Data.cols];
         
         for (int i = 0; i < papan.colors.size(); i++) {
             Data.Color c = papan.colors.get(i);
             for (int j = 0; j < c.position.size(); j++) {
                 Data.Coordinat coord = c.position.get(j);
                 if (coord.x < Data.rows && coord.y < Data.cols) {
-                    boardMap[coord.x][coord.y] = new Data.Map(c.letter);
+                    Data.Map[coord.x][coord.y] = new Data.Cell(c.letter);
                 }
             }
         }
@@ -140,7 +154,9 @@ public class GUIController {
         if (ratu != null && ratu.position != null) {
             for (int k = 0; k < ratu.position.size(); k++) { 
                 Data.Coordinat qPos = ratu.position.get(k);
-                boardMap[qPos.x][qPos.y].Queen = true;
+                if(qPos.x < Data.rows && qPos.y < Data.cols && Data.Map[qPos.x][qPos.y] != null){
+                    Data.Map[qPos.x][qPos.y].Queen = true;
+                }
             }
         }
 
@@ -148,11 +164,11 @@ public class GUIController {
             for (int j = 0; j < Data.cols; j++) {
                 StackPane cell = new StackPane();
                 cell.setPrefSize(40, 40);
-                Data.Map cellData = boardMap[i][j];
+                Data.Cell cellData = Data.Map[i][j];
                 String colorHex = "#FFFFFF"; 
 
                 if (cellData != null) {
-                    colorHex = getColorForChar(cellData.Letter);
+                    colorHex = Data.getColorHex(cellData.Letter);
                     cell.setStyle("-fx-background-color: " + colorHex + "; -fx-border-color: rgba(0,0,0,0.1);");
                     if (cellData.Queen) {
                         Label queenLabel = new Label("♛"); 
@@ -166,38 +182,4 @@ public class GUIController {
             }
         }
     }
-
-    private final String[] STANDARD_COLORS = {
-        "#FF0000", 
-        "#00FF00", 
-        "#0000FF", 
-        "#FFFF00", 
-        "#FFA500", 
-        "#800080", 
-        "#00FFFF", 
-        "#FF00FF", 
-        "#A52A2A", 
-        "#808080", 
-        "#FFC0CB", 
-        "#4B0082",
-        "#800000",
-        "#008080",
-        "#000080",
-        "#808000",
-        "#C0C0C0",
-        "#FFD700",
-        "#FA8072",
-        "#40E0D0"
-    };
-
-    // Generate Warna
-    private String getColorForChar(char c) {
-        int charValue = (int) c - 'A';
-        int index = (charValue * 7) % STANDARD_COLORS.length;
-        if (index < 0){
-            index += STANDARD_COLORS.length;
-        }
-        return STANDARD_COLORS[index];
-    }
-
 }

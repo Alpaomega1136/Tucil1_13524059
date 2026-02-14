@@ -1,7 +1,6 @@
-
 .root {
     -fx-font-family: 'Segoe UI', 'Helvetica', 'Arial', sans-serif;
-    -fx-background-color: #f4f6f5;
+    -fx-background-color: #e0e0e0; 
     -fx-font-size: 14px;
 }
 
@@ -49,23 +48,32 @@
 }
 
 .text-field, .text-area {
-    -fx-background-color: #fcfdfd;
-    -fx-border-color: #b0bec5;
-    -fx-border-radius: 4;
-    -fx-background-radius: 4;
-    -fx-padding: 8;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #cfd8dc;
+    -fx-border-width: 1.5px;
+    -fx-padding: 10;
     -fx-text-fill: #37474f;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.03), 3, 0, 0, 1);
 }
 
 .text-field:focused, .text-area:focused {
-    -fx-border-color: #4a6c5a; 
+    -fx-border-color: #4a6c5a;
     -fx-background-color: #ffffff;
-    -fx-effect: dropshadow(three-pass-box, rgba(74, 108, 90, 0.2), 5, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 108, 90, 0.15), 6, 0, 0, 0);
+}
+
+.text-area .content, .text-area .viewport {
+    -fx-background-color: transparent;
 }
 
 .input-area {
-    -fx-font-family: 'Consolas', 'Monospaced';
-    -fx-font-size: 13px;
+    -fx-font-family: 'Consolas', 'Courier New', monospace;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-highlight-fill: #c8e6c9;
+    -fx-highlight-text-fill: #1b5e20;
 }
 
 .ghost-button {
