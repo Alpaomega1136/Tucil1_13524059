@@ -1,0 +1,11 @@
+AAAAAAA#
+B#CCAADA
+BAA#CDDA
+BEAAHH#A
+FEAA#HAA
+FE#AAIIA
+FAAAI#AA
+#AAAAAAA
+
+Waktu pencarian: 236 ms
+Banyak kasus yang ditinjau: 121840

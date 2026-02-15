@@ -1,0 +1,11 @@
+AAA#BBBB
+CCCCCCC#
+D#EEEECH
+DCCC#ECH
+DC#CCECH
+DCFEE#CH
+#CCCCCCH
+IIIIII#H
+
+Waktu pencarian: 4201 ms
+Banyak kasus yang ditinjau: 2144997
