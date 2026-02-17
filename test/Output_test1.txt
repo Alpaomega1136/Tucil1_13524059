@@ -8,5 +8,5 @@ FGG#DDHDD
 FG#GDDHDD
 FGGGDDHH#
 
-Waktu pencarian: 49504 ms
+Waktu pencarian: 6715 ms
 Banyak kasus yang ditinjau: 21415356

@@ -38,7 +38,7 @@ public class Solve{
     private static boolean iteration(int colorIdx, Data.ListColor papan, Data.Queen ratu) {
         if (colorIdx >= papan.colors.size()) { 
             casesTried++;
-            if (casesTried % 1000 == 0 && onUpdateGUI != null) { // Update GUI
+            if (casesTried % 4000 == 0 && onUpdateGUI != null) { // Update GUI
                 
                 Data.Queen snapshot = new Data.Queen(ratu.queens);
                 snapshot.position = new ArrayList<>(ratu.position); 

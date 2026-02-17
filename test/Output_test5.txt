@@ -9,5 +9,5 @@ HHHHHHHHH#
 IIIIII#III
 JJJJJJJJ#J
 
-Waktu pencarian: 466309 ms
+Waktu pencarian: 74802 ms
 Banyak kasus yang ditinjau: 241357969

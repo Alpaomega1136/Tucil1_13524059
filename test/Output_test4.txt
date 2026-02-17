@@ -7,5 +7,5 @@ FE#AAIIA
 FAAAI#AA
 #AAAAAAA
 
-Waktu pencarian: 236 ms
+Waktu pencarian: 46 ms
 Banyak kasus yang ditinjau: 121840

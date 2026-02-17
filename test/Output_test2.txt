@@ -7,5 +7,5 @@ AEEEFFA#
 AAAAA#AG
 HH#AFFAG
 
-Waktu pencarian: 354 ms
+Waktu pencarian: 60 ms
 Banyak kasus yang ditinjau: 186816
